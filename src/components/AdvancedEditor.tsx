@@ -50,7 +50,7 @@ const AdvancedEditor = ({
     uploadHandler: (response: {
       result: { url: any; name: string }[];
       errorMessage?: string;
-    }) => void
+    }) => void,
   ): boolean => {
     (async () => {
       const file = files[0];
@@ -88,7 +88,7 @@ const AdvancedEditor = ({
       {...props}
       setAllPlugins
       onChange={handleChange}
-      onImageUploadBefore={handleImageUploadBefore}
+      // onImageUploadBefore={handleImageUploadBefore}
       getSunEditorInstance={getSunEditorInstance}
       setOptions={{
         ...setOptions,
