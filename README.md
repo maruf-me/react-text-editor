@@ -41,10 +41,11 @@ function App() {
 
   return (
     <TextEditor
-      variant="simple"
+      variant="moreAdvance"
       defaultValue={content}
       onChange={setContent}
       placeholder="Start typing your story..."
+      height="400px"
     />
   );
 }

@@ -410,4 +410,4 @@ export const GLOBAL_VARIANTS = {
   ...eCOMMERCE_VARIANTS,
 };
 
-export type VariantType = keyof typeof GLOBAL_VARIANTS | "custom";
+export type VariantType = keyof typeof GLOBAL_VARIANTS | "moreAdvance" | "custom";
