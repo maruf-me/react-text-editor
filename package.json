@@ -1,7 +1,7 @@
 {
   "name": "@marufme/react-text-editor",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A professional React wrapper for SunEditor with modular configs, plugin support, and TypeScript-first approach",
   "type": "module",
   "author": {
@@ -56,14 +56,14 @@
     "LICENSE",
     "CHANGELOG.md"
   ],
-  "main": "./dist/react-text-editor.cjs",
-  "module": "./dist/react-text-editor.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/react-text-editor.js",
-      "require": "./dist/react-text-editor.cjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
