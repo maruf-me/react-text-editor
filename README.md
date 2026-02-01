@@ -108,7 +108,122 @@ function CustomEditor() {
 }
 ```
 
+---
+
+## 🖼️ Handling Media Uploads
+
+Intercept image and video uploads to handle them with your custom backend API. This is essential for production applications where you need to control file storage, validation, and processing.
+
+### Basic Upload Handler
+
+```tsx
+import React from 'react';
+import { TextEditor } from '@marufme/react-text-editor';
+
+function EditorWithUpload() {
+  const handleImageUploadBefore = (
+    files: File[],
+    info: object,
+    uploadHandler: (response: {
+      result: { url: string; name: string }[];
+      errorMessage?: string;
+    }) => void
+  ) => {
+    (async () => {
+      const file = files[0];
+      
+      // Create FormData for API upload
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("directory", "editor");
+
+      try {
+        // Replace with your actual API endpoint
+        const response = await fetch("/fetch-file-upload", {
+          method: "POST",
+          body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Pass the uploaded URL back to the editor
+          uploadHandler({
+            result: [{
+              url: data.url,
+              name: file.name
+            }]
+          });
+        } else {
+          uploadHandler({ errorMessage: "Upload failed" });
+        }
+      } catch (error) {
+        console.error("Upload error:", error);
+        uploadHandler({ errorMessage: "Network error" });
+      }
+    })();
+    
+    return false; // Prevent default upload behavior
+  };
+
+  const handleVideoUploadBefore = (
+    files: File[],
+    info: object,
+    uploadHandler: any
+  ) => {
+    // Same logic as image upload, but for videos
+    return handleImageUploadBefore(files, info, uploadHandler);
+  };
+
+  return (
+    <TextEditor
+      variant="courseFull"
+      onImageUploadBefore={handleImageUploadBefore}
+      onVideoUploadBefore={handleVideoUploadBefore}
+      placeholder="Upload images and videos to your custom backend..."
+      height="500px"
+    />
+  );
+}
+```
+
+### Advanced: With Image Conversion
+
+```tsx
+const handleImageUploadBefore = (files, info, uploadHandler) => {
+  (async () => {
+    const file = files[0];
+    
+    // Optional: Convert to WebP for better compression
+    // const webpFile = await convertImageToWebP(file);
+    
+    const formData = new FormData();
+    formData.append("file", file); // or webpFile
+    formData.append("directory", "editor");
+
+    const response = await api.post("/fetch-file-upload", formData);
+    
+    if (response.success) {
+      uploadHandler({
+        result: [{
+          url: response.data.url,
+          name: "image"
+        }]
+      });
+    }
+  })();
+  
+  return false;
+};
+```
+
+---
+
+---
+
 ## ⚙️ Configuration & Props
+
+### Built-in Templates
 
 The package comes bundled with professional HTML templates. Users can insert these via the "Template" button in the editor.
 
@@ -116,16 +231,22 @@ The package comes bundled with professional HTML templates. Users can insert the
 - **E-commerce**: Product Descriptions, Promotional Banners.
 - **Internal**: Memos, Internal Notes.
 
-## ⚙️ Configuration & Props
+### Available Props
 
-In addition to standard `SunEditor` props, we support:
+The `TextEditor` component accepts all [SunEditor options](http://suneditor.com/sample/html/options.html) plus:
 
-| Prop | Type | Description |
-| :--- | :--- | :--- |
-| `variant` | `VariantType` | One of the pre-defined variant names (e.g., `detailed`, `full`). |
-| `buttonList` | `any[]` | Custom button list if `variant="custom"`. |
-| `setOptions` | `SunEditorOptions` | Deep configuration for the underlying SunEditor. |
-| `getSunEditorInstance` | `(sunEditor: any) => void` | Callback to get the editor instance. |
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `variant` | `VariantType` | `"simple"` | Pre-configured toolbar variant |
+| `buttonList` | `array` | `COMMON_TEXT_BUTTONS` | Custom button list (when `variant="custom"`) |
+| `setOptions` | `SunEditorOptions` | `{}` | Additional SunEditor configuration |
+| `height` | `string` | - | Editor height (e.g., `"400px"`) |
+| `placeholder` | `string` | - | Placeholder text |
+| `defaultValue` | `string` | - | Initial HTML content |
+| `onChange` | `function` | - | Callback when content changes |
+| `onImageUploadBefore` | `function` | - | Custom image upload handler |
+| `onVideoUploadBefore` | `function` | - | Custom video upload handler |
+| `getSunEditorInstance` | `function` | - | Callback to get the editor instance |
 
 ## 🛠 Contributing
 
