@@ -1,250 +1,129 @@
-# React SunEditor Wrapper
+# @marufme/react-text-editor
 
-A powerful and customizable rich text editor wrapper for React applications. Built with SunEditor and TypeScript for maximum flexibility and developer experience.
+![Editor Preview](docs/assets/editor-preview.png)
 
-## Features
+A professional, modular, and enterprise-ready React wrapper for **SunEditor**. Built with a TypeScript-first approach, it provides pre-configured variants and templates optimized for LMS, E-commerce, and Blog platforms.
 
-- 🎨 **Multiple Editor Variants** - From simple to full-featured editors
-- 📝 **Rich Text Editing** - Full WYSIWYG capabilities
-- 🧮 **Math Support** - KaTeX integration for mathematical expressions
-- 📋 **Template System** - Pre-built templates for common use cases
-- 🎯 **TypeScript Support** - Full type safety and IntelliSense
-- 🔧 **Customizable** - Extensive configuration options
-- 📱 **Responsive** - Works on all device sizes
-- 🎭 **Ref API** - Imperative API for advanced use cases
+[![npm version](https://img.shields.io/npm/v/@marufme/react-text-editor.svg)](https://www.npmjs.com/package/@marufme/react-text-editor)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Installation
+## ✨ Features
+
+- 🛠 **Modular Configurations**: Choose from pre-defined variants (Simple, Detailed, Full, etc.).
+- 📝 **Niche-Specific Variants**: Specialized presets for LMS, E-commerce, and Blog content.
+- 🧮 **Math & Science**: Built-in support for **KaTeX** for complex mathematical expressions.
+- � **Template System**: Ready-to-use HTML templates for courses, memos, and product descriptions.
+- � **Imperative API**: Full access to the underlying SunEditor core via React refs.
+- � **Modern Bundle**: Shipping as ESM and CJS with full tree-shaking support.
+- � **Themeable**: Easy to customize styles using CSS variables.
+
+## 🚀 Installation
 
 ```bash
-npm install react-suneditor-wrapper suneditor
-# or
-yarn add react-suneditor-wrapper suneditor
-# or
-pnpm add react-suneditor-wrapper suneditor
+# Using npm
+npm install @marufme/react-text-editor suneditor katex
+
+# Using pnpm
+pnpm add @marufme/react-text-editor suneditor katex
+
+# Using yarn
+yarn add @marufme/react-text-editor suneditor katex
 ```
 
-## Quick Start
+## 📖 Quick Start
 
 ```tsx
-import React, { useState } from 'react'
-import { TextEditor } from 'react-suneditor-wrapper'
+import React, { useState } from 'react';
+import { TextEditor } from '@marufme/react-text-editor';
 
-function MyComponent() {
-  const [content, setContent] = useState('')
+// Import styles (Required)
+import 'suneditor/dist/css/suneditor.min.css';
+import 'katex/dist/katex.min.css';
+
+function App() {
+  const [content, setContent] = useState('<p>Hello World!</p>');
 
   return (
     <TextEditor
-      value={content}
+      variant="simple"
+      defaultValue={content}
       onChange={setContent}
-      placeholder="Start typing..."
-      variant="detailedAdvance"
+      placeholder="Start typing your story..."
     />
-  )
+  );
 }
 ```
 
-## Editor Variants
+## 🎨 Editor Variants
 
-### Simple
-Basic formatting tools for simple text editing.
+We provide massive variants out of the box. You can pass these to the `variant` prop.
 
-### Detailed Simple
-Extended formatting with tables and media support.
+| Variant | Best For |
+| :--- | :--- |
+| `simple` | Comments, quick notes, basic posts |
+| `detailedAdvanced` | Deep content creation with Math support |
+| `full` | Enterprise admin panels, advanced CMS |
+| `courseFull` | LMS course builders & lesson editors |
+| `quizEditor` | Educational quizzes and assessments |
+| `productDescription` | E-commerce product details |
 
-### Detailed Advance (Default)
-Full-featured editor with templates and advanced formatting.
-
-### Advance Full
-Complete editor with math support and all features.
-
-## Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | `''` | Editor content |
-| `onChange` | `(content: string) => void` | - | Content change handler |
-| `placeholder` | `string` | `'Start typing...'` | Placeholder text |
-| `height` | `string` | `'300px'` | Editor height |
-| `variant` | `'simple' \| 'detailedSimple' \| 'detailedAdvance' \| 'advanceFull'` | `'detailedAdvance'` | Editor variant |
-| `className` | `string` | `''` | Additional CSS classes |
-| `disabled` | `boolean` | `false` | Disable editor |
-
-## Ref API
-
-Access editor methods using ref:
+### Usage with Specialist Variant
 
 ```tsx
-import React, { useRef } from 'react'
-import { TextEditor, TextEditorRef } from 'react-suneditor-wrapper'
-
-function MyComponent() {
-  const editorRef = useRef<TextEditorRef>(null)
-
-  const insertHTML = () => {
-    editorRef.current?.insertHTML('<p>Hello World!</p>')
-  }
-
-  const getContent = () => {
-    const content = editorRef.current?.getContents()
-    console.log(content)
-  }
-
-  return (
-    <div>
-      <TextEditor ref={editorRef} />
-      <button onClick={insertHTML}>Insert HTML</button>
-      <button onClick={getContent}>Get Content</button>
-    </div>
-  )
-}
+<TextEditor variant="detailedAdvanced" height="500px" />
 ```
 
-### Ref Methods
+## 📄 Templates
 
-- `insertHTML(html: string)` - Insert HTML at cursor position
-- `getContents()` - Get current editor content
-- `setContents(contents: string)` - Set editor content
-- `focus()` - Focus the editor
-- `blur()` - Blur the editor
+The package comes bundled with professional HTML templates. Users can insert these via the "Template" button in the editor.
 
-## Templates
+- **LMS**: Course Overview (English/Bangla), Lesson Content, Instructor Profile.
+- **E-commerce**: Product Descriptions, Promotional Banners.
+- **Internal**: Memos, Internal Notes.
 
-The package includes pre-built templates:
+## ⚙️ Configuration & Props
 
-- **Welcome Letter** - Professional welcome letter template
-- **Product Description** - Comprehensive product description template
-- **Meeting Minutes** - Structured meeting minutes template
+In addition to standard `SunEditor` props, we support:
 
-## Configuration
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| `variant` | `VariantType` | One of the pre-defined variant names (e.g., `detailed`, `full`). |
+| `buttonList` | `any[]` | Custom button list if `variant="custom"`. |
+| `setOptions` | `SunEditorOptions` | Deep configuration for the underlying SunEditor. |
+| `getSunEditorInstance` | `(sunEditor: any) => void` | Callback to get the editor instance. |
 
-### Button Variants
+## 🛠 Contributing
 
-Customize editor buttons by importing button configurations:
+We welcome contributions! To get started:
 
-```tsx
-import { buttonListVariants } from 'react-suneditor-wrapper'
+1. **Clone the repo**:
+   ```bash
+   git clone https://github.com/maruf-me/react-text-editor.git
+   ```
+2. **Install dependencies**:
+   ```bash
+   pnpm install
+   ```
+3. **Run local dev server**:
+   ```bash
+   pnpm dev
+   ```
+4. **Run tests**:
+   ```bash
+   pnpm test
+   ```
 
-// Use custom button configuration
-const customButtons = buttonListVariants.simple
-```
+### Project Structure
+- `src/components`: React components and core wrapper.
+- `src/variants`: Button configuration presets.
+- `src/templates`: HTML template library.
 
-### Templates
+## 👨‍💻 Author
 
-Access and customize templates:
+**MD Maruf Hossain**
+- Website: [marufme.com](https://marufme.com)
+- Email: [marufme.dev@gmail.com](mailto:marufme.dev@gmail.com)
 
-```tsx
-import { templatesList } from 'react-suneditor-wrapper'
+## 📄 License
 
-// Use custom templates
-const customTemplates = [
-  ...templatesList,
-  {
-    name: 'Custom Template',
-    html: '<div>Custom content</div>'
-  }
-]
-```
-
-## Advanced Usage
-
-### Custom Styling
-
-```tsx
-<TextEditor
-  className="my-custom-editor"
-  style={{ border: '2px solid #blue' }}
-/>
-```
-
-### Math Support
-
-The editor includes KaTeX support for mathematical expressions:
-
-```tsx
-// Math will be rendered automatically
-const mathContent = '$$x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}$$'
-```
-
-### Event Handling
-
-```tsx
-<TextEditor
-  onChange={(content) => {
-    console.log('Content changed:', content)
-  }}
-  onFocus={() => console.log('Editor focused')}
-  onBlur={() => console.log('Editor blurred')}
-/>
-```
-
-## Development
-
-### Setup
-
-```bash
-git clone <repository-url>
-cd react-suneditor-wrapper
-pnpm install
-```
-
-### Build
-
-```bash
-pnpm build
-```
-
-### Test
-
-```bash
-pnpm test
-```
-
-### Demo
-
-```bash
-cd examples/next-demo
-pnpm install
-pnpm dev
-```
-
-## Browser Support
-
-- Chrome 60+
-- Firefox 60+
-- Safari 12+
-- Edge 79+
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-MIT © [Your Name]
-
-## Changelog
-
-### 1.0.0
-- Initial release
-- Multiple editor variants
-- TypeScript support
-- Template system
-- KaTeX integration
-- Ref API
-- Comprehensive documentation
-
-## Support
-
-If you encounter any issues or have questions, please:
-
-1. Check the [documentation](#)
-2. Search [existing issues](#)
-3. Create a [new issue](#)
-
----
-
-Made with ❤️ for the React community
+Licensed under the [MIT License](LICENSE).

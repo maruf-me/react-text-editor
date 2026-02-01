@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { TextEditor } from "../src";
+import { TextEditor } from "../src/index.js";
 
 test("renders editor with default content", () => {
   render(<TextEditor defaultValue="Hello" name="editor" />);
