@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { AdvancedEditor } from "../src";
+import { TextEditor } from "../src";
 
 test("renders editor with default content", () => {
-  render(<AdvancedEditor defaultValue="Hello" name="editor" />);
+  render(<TextEditor defaultValue="Hello" name="editor" />);
 
   const editor = screen.getByTestId("editor");
   expect(editor).toBeInTheDocument();

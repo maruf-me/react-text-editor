@@ -9,7 +9,7 @@ import "katex/dist/katex.min.css";
 import { SunEditorReactProps } from "suneditor-react/dist/types/SunEditorReactProps";
 import { COMMON_TEXT_BUTTONS, GLOBAL_VARIANTS, VariantType } from "../variants";
 import { SunEditorOptions } from "suneditor/src/options";
-import { templatesList } from "../templates";
+import { templates } from "../templates";
 
 type TextEditorProps = SunEditorReactProps & {
   variant?: VariantType;
@@ -18,7 +18,7 @@ type TextEditorProps = SunEditorReactProps & {
   setOptions?: SunEditorOptions;
 };
 
-const AdvancedEditor = ({
+const TextEditor = ({
   onChange,
   variant = "simple",
   buttonList = COMMON_TEXT_BUTTONS,
@@ -27,7 +27,7 @@ const AdvancedEditor = ({
     resizeEnable: true,
     imageResizing: true,
     katex,
-    templates: templatesList,
+    templates: templates,
     addTagsWhitelist: "math",
   },
   ...props
@@ -99,24 +99,6 @@ const AdvancedEditor = ({
   );
 };
 
-AdvancedEditor.displayName = "AdvancedEditor";
+TextEditor.displayName = "TextEditor";
 
-export default AdvancedEditor;
-
-interface PreviewEditorProps {
-  children: string; // HTML string
-  className?: string;
-}
-
-export const PreviewEditor: React.FC<PreviewEditorProps> = ({
-  children,
-  className,
-}) => {
-  return (
-    <div
-      className={`sun-editor-preview sun-editor-editable bg-transparent p-2 rounded ${className}`}
-      // ⚠️ Render HTML content from editor
-      dangerouslySetInnerHTML={{ __html: children }}
-    />
-  );
-};
+export default TextEditor;
