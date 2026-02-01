@@ -404,6 +404,7 @@ export const eCOMMERCE_VARIANTS = {
 // Merge all variants
 // ============================================
 export const GLOBAL_VARIANTS = {
+  moreAdvance: MORE_ADVANCE,
   ...BLOG_VARIANTS,
   ...LMS_VARIANTS,
   ...eCOMMERCE_VARIANTS,

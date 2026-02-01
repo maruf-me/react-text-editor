@@ -85,7 +85,6 @@ const TextEditor = ({
   const SunEditorComp = SunEditor as any;
 
   return (
-    // <div className="sun-editor-wrapper relative z-10">
     <SunEditorComp
       {...props}
       setAllPlugins
@@ -97,7 +96,6 @@ const TextEditor = ({
         buttonList: processButtonList,
       }}
     />
-    // </div>
   );
 };
 

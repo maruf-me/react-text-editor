@@ -21,13 +21,13 @@ A professional, modular, and enterprise-ready React wrapper for **SunEditor**. B
 
 ```bash
 # Using npm
-npm install @marufme/react-text-editor suneditor katex
+npm install @marufme/react-text-editor
 
 # Using pnpm
-pnpm add @marufme/react-text-editor suneditor katex
+pnpm add @marufme/react-text-editor
 
 # Using yarn
-yarn add @marufme/react-text-editor suneditor katex
+yarn add @marufme/react-text-editor
 ```
 
 ## 📖 Quick Start
@@ -35,10 +35,6 @@ yarn add @marufme/react-text-editor suneditor katex
 ```tsx
 import React, { useState } from 'react';
 import { TextEditor } from '@marufme/react-text-editor';
-
-// Import styles (Required)
-import 'suneditor/dist/css/suneditor.min.css';
-import 'katex/dist/katex.min.css';
 
 function App() {
   const [content, setContent] = useState('<p>Hello World!</p>');
@@ -56,24 +52,62 @@ function App() {
 
 ## 🎨 Editor Variants
 
-We provide massive variants out of the box. You can pass these to the `variant` prop.
+We provide a wide range of pre-configured variants categorized by use case. Pass these to the `variant` prop.
 
-| Variant | Best For |
+### Common Variants
+| Variant | Ideal For |
 | :--- | :--- |
-| `simple` | Comments, quick notes, basic posts |
-| `detailedAdvanced` | Deep content creation with Math support |
-| `full` | Enterprise admin panels, advanced CMS |
-| `courseFull` | LMS course builders & lesson editors |
-| `quizEditor` | Educational quizzes and assessments |
-| `productDescription` | E-commerce product details |
+| `simple` | Comments, quick notes, basic social posts |
+| `minimal` | Ultra-clean interfaces with basic formatting |
+| `detailed` | Standard blog posts with media support |
+| `detailedAdvanced` | content creation with Math/KaTeX support |
+| `full` | Enterprise-grade CMS and deep editing |
+| `moreAdvance` | Power users requiring every single plugin |
 
-### Usage with Specialist Variant
+### LMS (Learning Management System)
+| Variant | Ideal For |
+| :--- | :--- |
+| `lessonBasic` | Standard lesson descriptions |
+| `lessonVideo` | Lessons focused on video embedding |
+| `courseFull` | Comprehensive course builder |
+| `quizEditor` | Educational assessments and quizzes |
+| `discussionReply` | Simplified forum and discussion replies |
+
+### E-commerce
+| Variant | Ideal For |
+| :--- | :--- |
+| `productDescription`| Detailed product spec sheets |
+| `reviewEditor` | Customer product reviews |
+
+---
+
+## 🛠 Custom Variants
+
+If none of the presets fit your needs, you can define your own toolbar using the `custom` variant.
 
 ```tsx
-<TextEditor variant="detailedAdvanced" height="500px" />
+import React from 'react';
+import { TextEditor } from '@marufme/react-text-editor';
+
+function CustomEditor() {
+  const myCustomToolbar = [
+    ['undo', 'redo'],
+    ['bold', 'italic', 'underline'],
+    ['fontColor', 'hiliteColor'],
+    ['link', 'image']
+  ];
+
+  return (
+    <TextEditor
+      variant="custom"
+      buttonList={myCustomToolbar}
+      placeholder="Type here with your custom toolbar..."
+    />
+  );
+}
 ```
 
-## 📄 Templates
+## ⚙️ Configuration & Props
 
 The package comes bundled with professional HTML templates. Users can insert these via the "Template" button in the editor.
 

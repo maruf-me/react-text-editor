@@ -1,7 +1,7 @@
 {
   "name": "@marufme/react-text-editor",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A professional React wrapper for SunEditor with modular configs, plugin support, and TypeScript-first approach",
   "type": "module",
   "author": {
